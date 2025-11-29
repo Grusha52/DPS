@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="731ff194-0537-437c-a3f2-0f8f9faf300c" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="34jELot9bilrIGl8V98qDZSf6K1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Clojure REPL.REPL for clj1.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReplState" timestamp="1762329230264">{:repl-history {:ide [], :local [{:command &quot;(def m {:two 2 :four 4})&quot;, :offset 24, :ns &quot;clj1.core&quot;} {:command &quot;(:four m)&quot;, :offset 9, :ns &quot;clj1.core&quot;} {:command &quot;(println (apply + 2 2 2))&quot;, :offset 25, :ns &quot;clj1.core&quot;} {:command &quot;(println (apply + [2 2 2]))&quot;, :offset 27, :ns &quot;clj1.core&quot;} {:command &quot;(println (apply + {2 2 2}))&quot;, :offset 27, :ns &quot;clj1.core&quot;} {:command &quot;(println (apply + (set [2 2 2])))&quot;, :offset 33, :ns &quot;clj1.core&quot;} {:command &quot;(println (apply + (set [2 2 2 4])))&quot;, :offset 35, :ns &quot;clj1.core&quot;} {:command &quot;(defn sum [&amp; args] (apply + args))&quot;, :offset 34, :ns &quot;clj1.core&quot;} {:command &quot;sum 2 2 2 2&quot;, :offset 11, :ns &quot;clj1.core&quot;} {:command &quot;(sum 2 2 2 2)&quot;, :offset 13, :ns &quot;clj1.core&quot;} {:command &quot;(defn mul [&amp; args] (apply * args))&quot;, :offset 34, :ns &quot;clj1.core&quot;} {:command &quot;(mul 2 2)&quot;, :offset 9, :ns &quot;clj1.core&quot;} {:command &quot;(mul 2 2 2)&quot;, :offset 11, :ns &quot;clj1.core&quot;} {:command &quot;(mul 2 2 2 2)&quot;, :offset 13, :ns &quot;clj1.core&quot;} {:command &quot;(defn pow [&amp; args] (apply ^ args))&quot;, :offset 34, :ns &quot;clj1.core&quot;} {:command &quot;def list [1 2 3 4 5]&quot;, :offset 20, :ns &quot;clj1.core&quot;} {:command &quot;(+ list)&quot;, :offset 8, :ns &quot;clj1.core&quot;} {:command &quot;(apply + [1 2 3])&quot;, :offset 17, :ns &quot;clj1.core&quot;} {:command &quot;(def list [1 2 3 4 5])&quot;, :offset 22, :ns &quot;clj1.core&quot;} {:command &quot;(apply + list)&quot;, :offset 14, :ns &quot;clj1.core&quot;} {:command &quot;(apply + [1 2 3]) == (+ 1 2 3)&quot;, :offset 30, :ns &quot;clj1.core&quot;} {:command &quot;(defn eq? [&amp;args] (apply = args))&quot;, :offset 33, :ns &quot;clj1.core&quot;} {:command &quot;(defn eq? [&amp; args] (apply = args))&quot;, :offset 34, :ns &quot;clj1.core&quot;} {:command &quot;(eq? (apply + [1 2 3]) (+ 1 2 3))&quot;, :offset 33, :ns &quot;clj1.core&quot;} {:command &quot;(+ 5 [1 2 3])&quot;, :offset 13, :ns &quot;clj1.core&quot;} {:command &quot;(nth [1 2 3 4] 1)&quot;, :offset 17, :ns &quot;clj1.core&quot;} {:command &quot;(nth [1 2 3 4] 3)&quot;, :offset 17, :ns &quot;clj1.core&quot;} {:command &quot;(nth [1 2 3 4] 25)&quot;, :offset 18, :ns &quot;clj1.core&quot;} {:command &quot;(nth [1 2 3 4] -1)&quot;, :offset 18, :ns &quot;clj1.core&quot;} {:command &quot;(nth [1 2 3 4] -2)&quot;, :offset 18, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n  fn [] (a + 10))&quot;, :offset 35, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (fn [] (a + 10)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;(closure 5)&quot;, :offset 11, :ns &quot;clj1.core&quot;} {:command &quot;((closure 5))&quot;, :offset 13, :ns &quot;clj1.core&quot;} {:command &quot;((closure 10))&quot;, :offset 14, :ns &quot;clj1.core&quot;} {:command &quot;(println ((closure 5)))&quot;, :offset 23, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (∆ [] (a + 10)))&quot;, :offset 37, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (fn [b] (a + b)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (λ [b] (a + b)))&quot;, :offset 37, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (λ [b] (+ a b)))&quot;, :offset 37, :ns &quot;clj1.core&quot;} {:command &quot;(defn closure [a]\n   (fn [b] (+ a b)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;((closure 5) 10)&quot;, :offset 16, :ns &quot;clj1.core&quot;} {:command &quot;(def func\n  {:plus5 (fn [a] (+ a 5))\n   :plus10 (fn [a] (+ a 10))})&quot;, :offset 67, :ns &quot;clj1.core&quot;} {:command &quot;(def func\n  {:plus5 (fn [a] (+ a 5))\n   :plus10 (fn [a] (+ a 10))\n   :mul2 (fn [a] (* a 2))})&quot;, :offset 93, :ns &quot;clj1.core&quot;} {:command &quot;(:plus5 4)&quot;, :offset 10, :ns &quot;clj1.core&quot;} {:command &quot;(func :plus5 4)&quot;, :offset 15, :ns &quot;clj1.core&quot;} {:command &quot;((:plus10 func) 10)&quot;, :offset 19, :ns &quot;clj1.core&quot;} {:command &quot;((:mul2 func) 20)&quot;, :offset 17, :ns &quot;clj1.core&quot;} {:command &quot;#{:a 20, \&quot;b\&quot; 30}&quot;, :offset 16, :ns &quot;clj1.core&quot;} {:command &quot;(set {:a 20, \&quot;b\&quot; 30})&quot;, :offset 21, :ns &quot;clj1.core&quot;} {:command &quot;(println (set {:a 20, \&quot;b\&quot; 30}))&quot;, :offset 31, :ns &quot;clj1.core&quot;} {:command &quot;(println (set [1, 2, 3]))&quot;, :offset 25, :ns &quot;clj1.core&quot;} {:command &quot;(println (set '(1, 2, 3)))&quot;, :offset 26, :ns &quot;clj1.core&quot;} {:command &quot;(println (set (list 1 2 3 4 5)))&quot;, :offset 32, :ns &quot;clj1.core&quot;} {:command &quot;(def v1 [1, 2])&quot;, :offset 15, :ns &quot;clj1.core&quot;} {:command &quot;(def v2 (conj v1 3))&quot;, :offset 20, :ns &quot;clj1.core&quot;} {:command &quot;(def v3 (conj v2 4))&quot;, :offset 20, :ns &quot;clj1.core&quot;} {:command &quot;(def v4 (conj v2 5))&quot;, :offset 20, :ns &quot;clj1.core&quot;} {:command &quot;(def v1 [1])&quot;, :offset 12, :ns &quot;clj1.core&quot;} {:command &quot;(println v3)&quot;, :offset 12, :ns &quot;clj1.core&quot;} {:command &quot;(println v4)&quot;, :offset 12, :ns &quot;clj1.core&quot;} {:command &quot;(println v1)&quot;, :offset 12, :ns &quot;clj1.core&quot;} {:command &quot;(println v2)&quot;, :offset 12, :ns &quot;clj1.core&quot;} {:command &quot;(repeatedly 5 1)&quot;, :offset 16, :ns &quot;clj1.core&quot;} {:command &quot;(repeatedly 5 (println 1))&quot;, :offset 26, :ns &quot;clj1.core&quot;} {:command &quot;(repeatedly 5)&quot;, :offset 14, :ns &quot;clj1.core&quot;} {:command &quot;(take 100 (repeatedly (int-rand 100)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;(take 100 (repeatedly (rand-int 100)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;(take 100 (repeatedly #(rand-int 100)))&quot;, :offset 39, :ns &quot;clj1.core&quot;} {:command &quot;(println (take 100 (repeatedly (rand-int 100))))&quot;, :offset 48, :ns &quot;clj1.core&quot;} {:command &quot;(repeatedly 5 #(rand-int 100))&quot;, :offset 30, :ns &quot;clj1.core&quot;} {:command &quot;(set (repeatedly 100 #(rand-int 100)))&quot;, :offset 38, :ns &quot;clj1.core&quot;} {:command &quot;(count (set (repeatedly 100 #(rand-int 100))))&quot;, :offset 46, :ns &quot;clj1.core&quot;} {:command &quot;(count (set (repeatedly 100 #(rand-int 1000))))&quot;, :offset 47, :ns &quot;clj1.core&quot;} {:command &quot;(count (set (repeatedly 100 #(rand-int 10009))))&quot;, :offset 48, :ns &quot;clj1.core&quot;} {:command &quot;(range 10)&quot;, :offset 10, :ns &quot;clj1.core&quot;} {:command &quot;(range 15)&quot;, :offset 10, :ns &quot;clj1.core&quot;} {:command &quot;(range 1 15 2)&quot;, :offset 14, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a))&quot;, :offset 40, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a b))&quot;, :offset 42, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a \\n b))&quot;, :offset 45, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a \&quot;\\n\&quot; b))&quot;, :offset 47, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a \&quot;\\n\&quot;b))&quot;, :offset 46, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a \&quot; \\n \&quot; b))&quot;, :offset 49, :ns &quot;clj1.core&quot;} {:command &quot; (let [a 10\n       b 20]\n   (println a\&quot;\\n\&quot;b))&quot;, :offset 45, :ns &quot;clj1.core&quot;} {:command &quot;[11 11]&quot;, :offset 7, :ns &quot;clj1.core&quot;} {:command &quot;(let [arr (repeatedly 100 #(rand-int 1000))]\n  (println (reduce min arr)))&quot;, :offset 74, :ns &quot;clj1.core&quot;} {:command &quot;(let [arr (repeatedly 100 #(rand-int 1000))]\n  (println (reduce max arr)))&quot;, :offset 74, :ns &quot;clj1.core&quot;} {:command &quot;(let [arr (repeatedly 100 #(rand-int 1000))]\n  (println (apply min arr)))&quot;, :offset 73, :ns &quot;clj1.core&quot;} {:command &quot;(apply min [1 2 2 1 2 2 2 1 0])&quot;, :offset 31, :ns &quot;clj1.core&quot;} {:command &quot;(min [1 2 2 1 2 2 2 1 0])&quot;, :offset 25, :ns &quot;clj1.core&quot;} {:command &quot;(min 1 2 2 2 1 2 1 21 1 21 21 2 0)&quot;, :offset 34, :ns &quot;clj1.core&quot;} {:command &quot;(defn plus [a b]\n  (+ a b))&quot;, :offset 27, :ns &quot;clj1.core&quot;} {:command &quot;(apply plus 5 5 5)&quot;, :offset 18, :ns &quot;clj1.core&quot;} {:command &quot;(reduce plus 5 5 5)&quot;, :offset 19, :ns &quot;clj1.core&quot;} {:command &quot;(defn plusplus [&amp; args]\n  (apply + args))&quot;, :offset 41, :ns &quot;clj1.core&quot;} {:command &quot;(apply plus [5 5 5])&quot;, :offset 20, :ns &quot;clj1.core&quot;} {:command &quot;(apply plusplus [5 5 5])&quot;, :offset 24, :ns &quot;clj1.core&quot;} {:command &quot;(reduce plusplus [5 5 5])&quot;, :offset 25, :ns &quot;clj1.core&quot;} {:command &quot;(reduce plus [5 5 5])&quot;, :offset 21, :ns &quot;clj1.core&quot;}], :remote []}}</component>
+  <component name="RunManager">
+    <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="bbPath" value="" />
+      <setting name="parameters" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <setting name="workingDir" value="" />
+      <setting name="focusEditor" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="REPL for clj1" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <option name="configVersion" value="1" />
+      <option name="displayName" value="REPL for clj1" />
+      <option name="execution" value="LEININGEN" />
+      <module name="clj1" />
+      <option name="options" />
+      <option name="profiles" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <setting name="useHeartbeat" value="true" />
+      <setting name="focusEditor" value="false" />
+      <setting name="urlFile" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="731ff194-0537-437c-a3f2-0f8f9faf300c" name="Changes" comment="" />
+      <created>1761718528824</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1761718528824</updated>
+      <workItem from="1761718529808" duration="20871000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

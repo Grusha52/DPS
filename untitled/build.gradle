@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'ru.nsu.chernikov'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+}
+
+application {
+    mainClass = 'ru.nsu.chernikov.ServerVirtual'
+}
+
+tasks.register('runClient', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.nsu.chernikov.Client'
+    args = project.findProperty("args")?.split() ?: []
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
