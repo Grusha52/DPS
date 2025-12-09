@@ -1,0 +1,151 @@
+(ns clj4.core)
+
+(declare supply-msg)
+(declare notify-msg)
+
+(defn storage
+  "Creates a new storage
+   ware - a name of ware to store (string)
+   notify-step - amount of stored items required for logger to react. 0 means to logging
+   consumers - factories to notify when the storage is updated
+   returns a map that contains:
+     :storage - an atom to store items that can be used by factories directly
+     :ware - a stored ware name
+     :worker - an agent to send supply-msg"
+  [ware notify-step & consumers]
+  (let [counter (atom 0 :validator #(>= % 0)),
+        worker-state {:storage counter,
+                      :ware ware,
+                      :notify-step notify-step,
+                      :consumers consumers}]
+    {:storage counter,
+     :ware ware,
+     :worker (agent worker-state)}))
+
+(defn factory
+  "Creates a new factory
+   amount - number of items produced per cycle
+   duration - cycle duration in milliseconds
+   target-storage - a storage to put products with supply-msg
+   ware-amounts - a list of ware names and their amounts required for a single cycle
+   returns a map that contains:
+     :worker - an agent to send notify-msg"
+  [amount duration target-storage & ware-amounts]
+  (let [bill (apply hash-map ware-amounts),
+        buffer (reduce-kv (fn [acc k _] (assoc acc k 0))
+                          {} bill),
+        ;;a state of factory agent:
+        ;;  :amount - a number of items to produce per cycle
+        ;;  :duration - a duration of cylce
+        ;;  :target-storage - a storage to place products (via supply-msg to its worker)
+        ;;  :bill - a map with ware names as keys and their amounts of values
+        ;;     shows how many wares must be consumed to perform one production cycle
+        ;;  :buffer - a map with similar structure as for :bill that shows how many wares are already collected;
+        ;;     it is the only mutable part.
+        worker-state {:amount amount,
+                      :duration duration,
+                      :target-storage target-storage,
+                      :bill bill,
+                      :buffer buffer}]
+    {:worker (agent worker-state)}))
+
+(defn source
+  "Creates a source that is a thread that produces 'amount' of wares per cycle to store in 'target-storage'
+   and with given cycle 'duration' in milliseconds
+   returns Thread that must be run explicitly"
+  [amount duration target-storage]
+  (new Thread
+       (fn []
+         (Thread/sleep duration)
+         (send (target-storage :worker) supply-msg amount)
+         (recur))))
+
+(defn supply-msg
+  "A message that can be sent to a storage worker to notify that the given 'amount' of wares should be added.
+   Adds the given 'amount' of ware to the storage and notifies all the registered factories about it
+   state - see code of 'storage' for structure"
+  [state amount]
+  (swap! (state :storage) #(+ % amount))
+  (let [ware (state :ware),
+        cnt @(state :storage),
+        notify-step (state :notify-step),
+        consumers (state :consumers)]
+    (when (and (> notify-step 0)
+               (> (int (/ cnt notify-step))
+                  (int (/ (- cnt amount) notify-step))))
+      (println (.format (new java.text.SimpleDateFormat "hh.mm.ss.SSS") (new java.util.Date))
+               "|" ware "amount: " cnt))
+    (when consumers
+      (doseq [consumer (shuffle consumers)]
+        (send (consumer :worker) notify-msg ware (state :storage) amount))))
+  state)
+
+(defn notify-msg
+  "A message that can be sent to a factory worker to notify that the provided 'amount' of 'ware's are
+   just put to the 'storage-atom'."
+  [state ware storage-atom amount]
+  (let [available @storage-atom
+        take (min amount available)]
+    (if (zero? take)
+      state
+      (let [
+            success? (loop []
+                       (let [cur @storage-atom]
+                         (if (>= cur take)
+                           (if (compare-and-set! storage-atom cur (- cur take))
+                             true
+                             (recur))
+                           false)))
+            ]
+        (if (not success?)
+          state
+          (let [bill (:bill state)
+                buffer (:buffer state)
+                new-buffer (update buffer ware (fnil + 0) take)
+                times (if (empty? bill)
+                        0
+                        (apply min (map (fn [[k v]] (quot (get new-buffer k 0) v)) bill)))]
+            (if (<= times 0)
+              (assoc state :buffer new-buffer)
+              (let [
+                    reserved-buffer
+                    (reduce-kv (fn [b k v]
+                                 (assoc b k (- (get b k 0) (* v times))))
+                               new-buffer
+                               bill)
+                    target (:target-storage state)
+                    amount-per-cycle (:amount state)
+                    duration (:duration state)]
+                (dotimes [_ times]
+                  (future
+                    (Thread/sleep duration)
+                    (send (target :worker) supply-msg amount-per-cycle)))
+                (assoc state :buffer reserved-buffer)))))))))
+
+(def safe-storage (storage "Safe" 1))
+(def safe-factory (factory 1 3000 safe-storage "Metal" 3))
+(def cuckoo-clock-storage (storage "Cuckoo-clock" 1))
+(def cuckoo-clock-factory (factory 1 2000 cuckoo-clock-storage "Lumber" 5 "Gears" 10))
+(def gears-storage (storage "Gears" 20 cuckoo-clock-factory))
+(def gears-factory (factory 4 1000 gears-storage "Ore" 4))
+(def metal-storage (storage "Metal" 5 safe-factory))
+(def metal-factory (factory 1 1000 metal-storage "Ore" 10))
+(def lumber-storage (storage "Lumber" 20 cuckoo-clock-factory))
+(def lumber-mill (source 5 4000 lumber-storage))
+(def ore-storage (storage "Ore" 10 metal-factory gears-factory))
+(def ore-mine (source 2 1000 ore-storage))
+
+;;;runs sources and the whole process as the result
+(defn start []
+  (.start ore-mine)
+  (.start lumber-mill))
+
+;;;stopes running process
+;;;recomplile the code after it to reset all the process
+(defn stop []
+  (.stop ore-mine)
+  (.stop lumber-mill))
+
+;;;This could be used to aquire errors from workers
+;;;(agent-error (gears-factory :worker))
+;;;(agent-error (metal-storage :worker))
