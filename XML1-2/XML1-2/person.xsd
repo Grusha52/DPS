@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <xs:element name="persons">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="person" type="PersonType" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PersonType">
+        <xs:sequence>
+            <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+            <xs:element name="gender" type="GenderType" minOccurs="0"/>
+            <!-- spouse can be either IDREF or a name string -->
+            <xs:element name="spouse" type="xs:IDREF" minOccurs="0"/>
+            <xs:element name="spouseName" type="xs:string" minOccurs="0"/>
+            <!-- parents as IDs or names -->
+            <xs:element name="parents" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="parent" type="xs:IDREF" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="motherName" type="xs:string" minOccurs="0"/>
+            <xs:element name="fatherName" type="xs:string" minOccurs="0"/>
+            <xs:element name="children" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="child" type="xs:IDREF" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="brothers" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="brother" type="xs:IDREF" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sisters" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sister" type="xs:IDREF" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="GenderType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="male"/>
+            <xs:enumeration value="female"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
