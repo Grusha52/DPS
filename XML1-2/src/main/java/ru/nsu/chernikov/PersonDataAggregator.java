@@ -34,8 +34,6 @@ public class PersonDataAggregator {
         Integer siblingsCountMarker;      // маркер из <siblings-number value="..."/>
         Set<String> unresolvedChildNames;   // неразрешённые имена детей (будут преобразованы позже)
         Set<String> unresolvedSiblingNames; // неразрешённые имена братьев/сестёр
-        Set<String> unresolvedParentNames;  // (зарезервировано)
-
         // Для объединения по имени (временное поле)
         String canonicalName;             // нормализованное полное имя
 
@@ -205,7 +203,7 @@ public class PersonDataAggregator {
         // 6. Выполнить маршаллинг с проверкой по схеме
         marshalWithValidation(root, outputFile, schemaFile);
 
-        System.out.println("Готово. Результат записан в " + outputFile);
+        System.out.println("Результат записан в " + outputFile);
     }
 
     // ---------- Разбор с помощью StAX ----------
@@ -265,7 +263,7 @@ public class PersonDataAggregator {
                         processValueAttribute(currentPerson, localName, value);
                     }
 
-                    // Проверить атрибуты счётчиков (например, <children count="..."/>)
+                    // Проверить атрибуты счётчиков (например children count=)
                     String countStr = getAttributeValue(start, "count");
                     if (countStr != null) {
                         try {
@@ -338,7 +336,7 @@ public class PersonDataAggregator {
                                 case "id":
                                     currentPerson.id = text;
                                     break;
-                                case "spouce":  // распространённая опечатка
+                                case "spouce":
                                 case "wife":
                                 case "husband":
                                     // Может быть именем или ID
@@ -402,7 +400,7 @@ public class PersonDataAggregator {
     }
 
     private static void addReference(PersonInfo person, String relation, String ref, boolean isId) {
-        if (!isId) return; // обрабатываем только ID
+        if (!isId) return; // только ID
         switch (relation) {
             case "spouse":
             case "wife":
@@ -424,7 +422,7 @@ public class PersonDataAggregator {
                 break;
             case "brother":
             case "sister":
-                person.siblings.add(ref); // позже разделим по полу
+                person.siblings.add(ref);
                 break;
         }
     }
@@ -491,13 +489,13 @@ public class PersonDataAggregator {
         Map<String, PersonInfo> idMap = new HashMap<>();
         Map<String, List<PersonInfo>> nameMap = new HashMap<>();
 
-        // Первый проход: группируем по ID и строим индекс по именам
+        // Первый проход группируем по ID и строим индекс по именам
         for (PersonInfo frag : fragments) {
             if (frag.id != null) {
                 // Есть ID – объединяем
                 idMap.merge(frag.id, frag, (a, b) -> { a.merge(b); return a; });
             } else {
-                // Нет ID, используем каноническое имя
+                // нет ID используем каноническое имя
                 String name = frag.getCanonicalName();
                 if (name != null) {
                     nameMap.computeIfAbsent(name, k -> new ArrayList<>()).add(frag);
@@ -547,7 +545,7 @@ public class PersonDataAggregator {
 
     // ---------- Преобразование текстовых ссылок в ID ----------
     private static void resolveNameReferences(Map<String, PersonInfo> persons) {
-        // Строим отображение "каноническое имя" -> ID (предполагаем уникальность имён)
+        // Строим отображение "Полное имя" -> ID
         Map<String, String> nameToId = new HashMap<>();
         for (PersonInfo p : persons.values()) {
             String name = p.getCanonicalName();
@@ -573,8 +571,6 @@ public class PersonDataAggregator {
                     String id = nameToId.get(childName);
                     if (id != null) {
                         p.children.add(id);
-                    } else {
-                        System.err.println("Предупреждение: не удалось разрешить имя ребёнка '" + childName + "' для человека " + p.id);
                     }
                 }
                 p.unresolvedChildNames = null;
@@ -585,8 +581,6 @@ public class PersonDataAggregator {
                     String id = nameToId.get(sibName);
                     if (id != null) {
                         p.siblings.add(id);
-                    } else {
-                        System.err.println("Предупреждение: не удалось разрешить имя брата/сестры '" + sibName + "' для человека " + p.id);
                     }
                 }
                 p.unresolvedSiblingNames = null;

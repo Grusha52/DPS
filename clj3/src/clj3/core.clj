@@ -1,8 +1,5 @@
 (ns clj3.core)
 
-;; Parallel, lazy filter using futures. Each future processes a block of elements.
-;; Options: :block-size (default 100), :prefetch (how many futures to start ahead, default 2)
-
 (defn pfilter
   ([pred coll] (pfilter pred coll {:block-size 100 :prefetch 2}))
   ([pred coll {:keys [block-size prefetch] :or {block-size 100 prefetch 2}}]
@@ -10,10 +7,6 @@
          futures-seq (map (fn [blk] (future (doall (filter pred blk)))) blocks)
          futures-seq (concat (doall (take prefetch futures-seq)) (drop prefetch futures-seq))]
      (mapcat deref futures-seq))))
-
-;; ----------------------------
-;; Performance helpers
-;; ----------------------------
 
 (defn measure-ms
   [f]
@@ -28,9 +21,6 @@
     (Thread/sleep ms)
     (even? x)))
 
-;; ----------------------------
-;; CLI entrypoint
-;; ----------------------------
 
 (defn -main [& _]
   (println "Parallel filter demo:")

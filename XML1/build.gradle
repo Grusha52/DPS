@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.nsu.chernikov'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+    // Для работы с XML
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0'
+
+    // Для валидации
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+    implementation 'org.hibernate.validator:hibernate-validator-annotation-processor:6.2.0.Final'
+
+    // Для тестирования
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+test {
+    useJUnitPlatform()
+}
